@@ -8,3 +8,12 @@ JAVA_OPTS=-Duser.timezone=GMT
 
 
 kubectl create configmap dev-env-vars --from-env-file=env-dev.properties
+
+...
+  spec:
+    containers:
+    - name: xxx
+      envFrom:
+      - configMapRef:
+        name: dev-env-vars
+
