@@ -2,8 +2,15 @@ package test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -12,90 +19,52 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class GetInfraDetails {
-	public static void main(String[] args) {
-		Map<String, Object[]> dataUat = new TreeMap<String, Object[]>();
-//		Map<String, Object[]> dataSit = new TreeMap<String, Object[]>();
-//		Map<String, Object[]> dataDev = new TreeMap<String, Object[]>();
-//		Map<String, Object[]> dataNft = new TreeMap<String, Object[]>();
-		int seqUat = 0;
-		int rowNumUat = 1;
-		dataUat.put("1", new Object[] { "#", "Microservice Name", "FlowCount", "User", "Level of MicroService",
-				"Instances", "Memory", "Build Packs" });
-//		dataSit.put("1", new Object[] { "#", "Microservice Name", "FlowCount", "User", "Level of MicroService",
-//				"Instances", "Memory", "Build Packs" });
-//		dataDev.put("1", new Object[] { "#", "Microservice Name", "FlowCount", "User", "Level of MicroService",
-//				"Instances", "Memory", "Build Packs" });
-//		dataNft.put("1", new Object[] { "#", "Microservice Name", "FlowCount", "User", "Level of MicroService",
-//				"Instances", "Memory", "Build Packs" });
-		File folder = new File("C:\\Users\\dhalv\\eclipse-workspace\\test\\Infra\\");
-		File[] listOfFiles = folder.listFiles();
-		for (File file : listOfFiles) {
-			if (file.isFile()) {
-				String inputFileName = file.getName();
-				System.out.println(inputFileName);
-				// Try block to check for exceptions
-				try {
+public class ReadInfraDetails {
 
-					// Reading file from local directory
-					FileInputStream excelFile = new FileInputStream(
-							new File("C:\\\\Users\\\\dhalv\\\\eclipse-workspace\\\\test\\\\Infra\\\\" + inputFileName));
+	private static final String pcfConfigDirectory = "D:\\Microservices\\Code\\";
 
-					// Create Workbook instance holding reference to
-					// .xlsx file
-					XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
+	private static final List<String> targetFilesPcf = Arrays.asList("pcf-prd.config", "pcf-uat.config",
+			"pcf-dev.config", "pcf-sit.config", "pcf-nft.config", "pcf-common.config");
 
-					// Get first/desired sheet from the workbook
-					XSSFSheet sheet = workbook.getSheetAt(0);
 
-					String instanceValue = "";
-					String buildPackValue = "";
-					String memoryValue = "";
-					for (Row row : sheet) {
-						Cell environmentValue = row.getCell(0);
-						Cell infraDetailKey = row.getCell(1);
-						Cell infraDetailValue = row.getCell(2);
-						if (environmentValue.getStringCellValue().contains("nft")) {
-							if (infraDetailKey.getStringCellValue().equalsIgnoreCase("pcf_instances")) {
-								instanceValue = String.valueOf(infraDetailValue.getStringCellValue());
-							}
-							if (infraDetailKey.getStringCellValue().equalsIgnoreCase("pcf_buildpack")) {
-								buildPackValue = infraDetailValue.getStringCellValue();
-							}
-							if (infraDetailKey.getStringCellValue().equalsIgnoreCase("pcf_memory")) {
-								memoryValue = String.valueOf(infraDetailValue.getStringCellValue());
-							}
-						}
+	public static void main(String[] args) throws IOException {
 
+		File dir = new File("D:\\Microservices\\Code\\");
+		File[] subdirs = dir.listFiles(File::isDirectory);
+
+		if (subdirs != null) {
+			for (File subdir : subdirs) {
+				Map<String, Object[]> dataMap = new TreeMap<String, Object[]>();
+				System.out.println(subdir.getName());
+				for (int i = 0; i < targetFilesPcf.size(); i++) {
+					Properties prop = new Properties();
+					String fileName = pcfConfigDirectory + subdir.getName() + "\\pcf-config\\" + targetFilesPcf.get(i);
+					try (FileInputStream fis = new FileInputStream(fileName)) {
+						prop.load(fis);
+					} catch (FileNotFoundException ex) {
+					} catch (IOException ex) {
 					}
-					dataUat.put(String.valueOf(rowNumUat + 1), new Object[] { String.valueOf(seqUat + 1),
-							String.valueOf(inputFileName.split("//.")[0].replaceAll("-Infra", "")), "", "", "", instanceValue, memoryValue, buildPackValue });
-                    rowNumUat++;
-                    seqUat++;
-					// Closing file output streams
-					excelFile.close();
-				}
 
-				// Catch block to handle exceptions
-				catch (Exception e) {
+					dataMap.put(String.valueOf(i),
+							new Object[] { targetFilesPcf.get(i).split("\\.")[0], prop.getProperty("pcf_instances"),
+									prop.getProperty("pcf_buildpack"), prop.getProperty("pcf_memory") });
 
-					// Display the exception along with line number
-					// using printStackTrace() method
-					e.printStackTrace();
+					System.out.println(targetFilesPcf.get(i).split("\\.")[0] + "--" + prop.getProperty("pcf_instances")
+							+ "--" + prop.getProperty("pcf_buildpack") + "--" + prop.getProperty("pcf_memory"));
 				}
+				createExcel(dataMap,subdir.getName());
 			}
 		}
-		createExcel(dataUat);
 
 	}
 
-	public static void createExcel(Map<String, Object[]> dataToWrite) {
+	public static void createExcel(Map<String, Object[]> dataToWrite, String fileName) {
 		System.out.println(dataToWrite);
 		XSSFWorkbook workbook = new XSSFWorkbook();
 
 		// Create a blank sheet
 
-		XSSFSheet sheet = workbook.createSheet("InfraDetails");
+		XSSFSheet sheet = workbook.createSheet("Infra_Details");
 
 		// Iterate over data and write to sheet
 
@@ -119,7 +88,7 @@ public class GetInfraDetails {
 
 		try {
 			FileOutputStream out = new FileOutputStream(
-					new File("C:\\\\Users\\\\dhalv\\\\eclipse-workspace\\\\test\\\\Infra\\\\Output\\InfraDetails_NFT.xlsx"));
+					new File("D:\\Microservices\\Output\\"+fileName+".xlsx"));
 			workbook.write(out);
 			out.close();
 			System.out.println("excel written successfully on disk.");
@@ -127,4 +96,5 @@ public class GetInfraDetails {
 			e.printStackTrace();
 		}
 	}
+
 }
