@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "c8522683-f8cb-4211-8688-943930749263",
+		"name": "Credit Cards NTB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateApplication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"entryAccount\": \"XL\",\r\n  \"sessionId\": \"f693335452c29dbd00eb9986c1fac875\",\r\n  \"scope\": \"NTB\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PersonalDetails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"middleName\": null,\r\n  \"gender\": \"M\",\r\n  \"preferredContactNumber\": \"07894561237\",\r\n  \"dob\": \"1990-10-10\",\r\n  \"title\": \"MR\",\r\n  \"surname\": \"test\",\r\n  \"firstName\": \"test\",\r\n  \"nationality\": \"GBR\",\r\n  \"email\": \"test@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/personaldetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"personaldetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CurrentAddress",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lookupAddress\": {\r\n    \"addressLine1\": \"1 BRITISH BROADCASTING\",\r\n    \"addressLine2\": \"CORPORATION\",\r\n    \"addressLine3\": \"BROADCASTING HOUSE\",\r\n    \"addressLine4\": \"PORTLAND PLACE\",\r\n    \"flat\": null,\r\n    \"moveInMonth\": 10,\r\n    \"moveInYear\": 2023,\r\n    \"postcode\": \"W1A &&1AA\"\r\n  },\r\n  \"manualAddress\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/currentaddress",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"currentaddress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Validate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"accountNumber\": 21546987,\r\n  \"sortCode\": 246975\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/account/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"account",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "YourMoney",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rentOutgoingsAmount\": 10,\r\n  \"maritalStatus\": \"S\",\r\n  \"futureGrossAnnualIncome\": null,\r\n  \"sortCode\": 246975,\r\n  \"balanceTransferOpted\": false,\r\n  \"grossAnnualIncome\": null,\r\n  \"monthlyIncomeAmount\": 1000,\r\n  \"otherOutgoingsAmount\": null,\r\n  \"noOfDependants\": \"0\",\r\n  \"moreOutgoings\": false,\r\n  \"livingSituation\": \"H\",\r\n  \"incomeReduced\": false,\r\n  \"accountNumber\": 21546987,\r\n  \"employmentStatus\": \"EM\",\r\n  \"reducedIncomeAmount\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/yourmoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"yourmoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "YourOffer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/youroffer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"youroffer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "YourAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"creditLimitAutoIncrementOpted\": true,\r\n  \"balanceTransferOpted\": null,\r\n  \"directDebitOpted\": false,\r\n  \"employer\": null,\r\n  \"jobTitle\": null,\r\n  \"jobType\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/youraccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"youraccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SecurityDetails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"qwerty123\",\r\n  \"pin\": \"1526\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/securitydetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"securitydetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Communications",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"durableMediumConsented\": true,\r\n  \"paperlessStatementConsented\": true,\r\n  \"receiveMarketingByEmail\": true,\r\n  \"receiveMarketingByPhone\": true,\r\n  \"receiveMarketingByPost\": false,\r\n  \"securityKey\": \"dasfas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/communication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"communication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TermsAndConditions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"agreementSigned\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/account-opening/v1/cc/ao/api/creditcard/etb/application/1500044895/termsconditions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"account-opening",
+						"v1",
+						"cc",
+						"ao",
+						"api",
+						"creditcard",
+						"etb",
+						"application",
+						"1500044895",
+						"termsconditions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
