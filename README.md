@@ -32,3 +32,6 @@ spring.profiles.active will be configured, through an environment variable in th
 so that only the appropriate config data file(s) will be used, e.g.
 env-dev.ini defines SPRING_PROFILES_ACTIVE=awsdev
 
+
+https://tqbxycnk4l.execute-api.eu-west-1.amazonaws.com/account-opening/v1/staticdata/ao/api/static/data/?restrictTo=accessibleDocumentTypes,countries,courseCodes,crownDependencies,dependantsOptions,employmentStatusOptions,homeStatusOptions,jobTitles,maritalStatusOptions,titlesIncludingNonBinary,topLevelDomains&cachebuster=20252
+
